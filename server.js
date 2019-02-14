@@ -16,10 +16,11 @@ const run = async function () {
     vision,
     swagger,
   ]);
+
   await server.register(routes);
   await server.start();
 
-  console.log('Server running at:', server.info.uri);
+  server.log(['server', 'start'], 'Server running at ' + server.info.uri);
 };
 
 module.exports = server;

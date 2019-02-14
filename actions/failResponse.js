@@ -1,6 +1,6 @@
 
 module.exports = (request, h, error) => {
-  console.error('on.response.fail', error.message);
+  request.server.log(['error', 'response'], error);
 
   throw error;
 };
