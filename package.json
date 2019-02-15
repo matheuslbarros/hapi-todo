@@ -1,7 +1,7 @@
 {
   "name": "hapi-todo",
   "version": "1.0.0",
-  "description": "This is an example of a todo api implemented on hapi",
+  "description": "This is an example of a todo API implemented on Hapi",
   "author": "Matheus Barros",
   "license": "ISC",
   "main": "index.js",
