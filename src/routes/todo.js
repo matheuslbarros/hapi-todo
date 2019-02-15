@@ -17,6 +17,7 @@ module.exports = [
       response: {
         status: {
           200: todoSchema.todoListSchema,
+          400: responseSchema.badRequest,
           401: responseSchema.unauthorized,
           500: responseSchema.internalServerError,
         },
@@ -38,6 +39,7 @@ module.exports = [
       response: {
         status: {
           200: todoSchema.todoSchema,
+          400: responseSchema.badRequest,
           401: responseSchema.unauthorized,
           500: responseSchema.internalServerError,
         },
@@ -57,6 +59,7 @@ module.exports = [
       response: {
         status: {
           201: todoSchema.todoSchema,
+          400: responseSchema.badRequest,
           401: responseSchema.unauthorized,
           500: responseSchema.internalServerError,
         },
@@ -79,6 +82,7 @@ module.exports = [
       response: {
         status: {
           200: todoSchema.todoSchema,
+          400: responseSchema.badRequest,
           401: responseSchema.unauthorized,
           500: responseSchema.internalServerError,
         },
@@ -100,6 +104,7 @@ module.exports = [
       response: {
         status: {
           204: false,
+          400: responseSchema.badRequest,
           401: responseSchema.unauthorized,
           500: responseSchema.internalServerError,
         },
