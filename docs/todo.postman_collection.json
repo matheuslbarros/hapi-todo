@@ -13,8 +13,18 @@
 					"script": {
 						"id": "d526593e-d546-4127-b575-4328b7722e31",
 						"exec": [
-							"var data = JSON.parse(responseBody);\r",
-							"postman.setEnvironmentVariable(\"x-access-token\", data.token);"
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  pm.response.to.be.withBody;\r",
+							"  pm.response.to.be.json;\r",
+							"\r",
+							"  var response = pm.response.json();\r",
+							"  pm.expect(response).to.be.an('object');\r",
+							"  pm.expect(response.type).to.be.a('string');\r",
+							"  pm.expect(response.token).to.be.a('string');\r",
+							"\r",
+							"  pm.environment.set('x-access-token', response.token);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -62,9 +72,34 @@
 		},
 		{
 			"name": "List todos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4965d2ff-c20f-41b9-a272-ea029dda82ce",
+						"exec": [
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  pm.response.to.be.withBody;\r",
+							"  pm.response.to.be.json;\r",
+							"\r",
+							"  var response = pm.response.json();\r",
+							"  pm.expect(response).to.be.an('array');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{x-access-token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -95,8 +130,17 @@
 					"script": {
 						"id": "04f8c3e7-1b93-46cb-9612-fc6c2fd37aa0",
 						"exec": [
-							"var data = JSON.parse(responseBody);\r",
-							"postman.setEnvironmentVariable(\"todo_id\", data.id);"
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"  pm.response.to.have.status(201);\r",
+							"  pm.response.to.be.withBody;\r",
+							"  pm.response.to.be.json;\r",
+							"\r",
+							"  var response = pm.response.json();\r",
+							"  pm.expect(response).to.be.an('object');\r",
+							"  pm.expect(response.id).to.be.a('string');\r",
+							"\r",
+							"  pm.environment.set('todo', response.id);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -105,6 +149,11 @@
 			"request": {
 				"method": "POST",
 				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{x-access-token}}",
+						"type": "text"
+					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -136,15 +185,43 @@
 		},
 		{
 			"name": "Find one todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "001e7554-d4a2-4d7b-9787-23c1cf342ed9",
+						"exec": [
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  pm.response.to.be.withBody;\r",
+							"  pm.response.to.be.json;\r",
+							"\r",
+							"  var response = pm.response.json();\r",
+							"  pm.expect(response).to.be.an('object');\r",
+							"  pm.expect(response.id).to.be.a('string');\r",
+							"  pm.expect(response.title).to.be.a('string');\r",
+							"  pm.expect(response.description).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{x-access-token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:9000/api/todo/{{id}}",
+					"raw": "http://127.0.0.1:9000/api/todo/{{todo}}",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -156,7 +233,7 @@
 					"path": [
 						"api",
 						"todo",
-						"{{id}}"
+						"{{todo}}"
 					]
 				}
 			},
@@ -170,7 +247,18 @@
 					"script": {
 						"id": "04f8c3e7-1b93-46cb-9612-fc6c2fd37aa0",
 						"exec": [
-							""
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"  pm.response.to.be.withBody;\r",
+							"  pm.response.to.be.json;\r",
+							"\r",
+							"  var response = pm.response.json();\r",
+							"  pm.expect(response).to.be.an('object');\r",
+							"  pm.expect(response.id).to.be.a('string');\r",
+							"  pm.expect(response.title).to.be.a('string');\r",
+							"  pm.expect(response.description).to.be.a('string');\r",
+							"  pm.expect(response.done).to.be.a('boolean');\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -179,6 +267,11 @@
 			"request": {
 				"method": "PUT",
 				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{x-access-token}}",
+						"type": "text"
+					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -191,7 +284,7 @@
 					"raw": "{\n\t\"title\": \"title\",\n\t\"description\": \"description\",\n\t\"done\": true\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:9000/api/todo/{{todo_id}}",
+					"raw": "http://127.0.0.1:9000/api/todo/{{todo}}",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -203,7 +296,7 @@
 					"path": [
 						"api",
 						"todo",
-						"{{todo_id}}"
+						"{{todo}}"
 					]
 				}
 			},
@@ -217,7 +310,9 @@
 					"script": {
 						"id": "04f8c3e7-1b93-46cb-9612-fc6c2fd37aa0",
 						"exec": [
-							""
+							"pm.test(\"response must be valid\", function () {\r",
+							"  pm.response.to.have.status(204);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -226,6 +321,11 @@
 			"request": {
 				"method": "DELETE",
 				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{x-access-token}}",
+						"type": "text"
+					},
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
@@ -238,7 +338,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:9000/api/todo/{{todo_id}}",
+					"raw": "http://127.0.0.1:9000/api/todo/{{todo}}",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -250,7 +350,7 @@
 					"path": [
 						"api",
 						"todo",
-						"{{todo_id}}"
+						"{{todo}}"
 					]
 				}
 			},
