@@ -2,9 +2,9 @@ const server = require('./src/server');
 
 server.events.on('log', (event) => {
   if (event.error) {
-    console.error(`[ERROR][${event.timestamp}]: ${event.error.message}`, event);
+    console.error(`[${event.channel}][${event.timestamp}]: ${event.error.message}`, event);
   } else {
-    console.log(`[INFO][${event.timestamp}]: ${event.data}`, event);
+    console.log(`[${event.channel}][${event.timestamp}]: ${JSON.stringify(event.data)}`);
   }
 });
 

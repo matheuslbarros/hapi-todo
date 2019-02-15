@@ -6,9 +6,7 @@ const updateTodoHandler = require('../handlers/todo/update');
 const removeTodoHandler = require('../handlers/todo/remove');
 
 const todoSchema = require('../schemas/todo');
-
-const failRequest = require('../actions/failRequest');
-const failResponse = require('../actions/failRequest');
+const responseSchema = require('../schemas/response');
 
 module.exports = [
   {
@@ -16,14 +14,12 @@ module.exports = [
     path: '/api/todo',
     handler: findTodoHandler,
     options: {
-      validate: {
-        failAction: failRequest,
-      },
       response: {
         status: {
           200: todoSchema.todoListSchema,
+          401: responseSchema.unauthorized,
+          500: responseSchema.internalServerError,
         },
-        failAction: failResponse,
       },
       description: 'List todos',
       tags: ['api', 'todo'],
@@ -38,13 +34,13 @@ module.exports = [
         params: {
           id: todoSchema.todoId,
         },
-        failAction: failRequest,
       },
       response: {
         status: {
           200: todoSchema.todoSchema,
+          401: responseSchema.unauthorized,
+          500: responseSchema.internalServerError,
         },
-        failAction: failResponse,
       },
       description: 'Retrieve todo',
       tags: ['api', 'todo'],
@@ -57,13 +53,13 @@ module.exports = [
     options: {
       validate: {
         payload: todoSchema.todoCreate,
-        failAction: failRequest,
       },
       response: {
         status: {
           201: todoSchema.todoSchema,
+          401: responseSchema.unauthorized,
+          500: responseSchema.internalServerError,
         },
-        failAction: failResponse,
       },
       description: 'Create todo',
       tags: ['api', 'todo'],
@@ -79,13 +75,13 @@ module.exports = [
           id: todoSchema.todoId,
         },
         payload: todoSchema.todoUpdate,
-        failAction: failRequest,
       },
       response: {
         status: {
           200: todoSchema.todoSchema,
+          401: responseSchema.unauthorized,
+          500: responseSchema.internalServerError,
         },
-        failAction: failResponse,
       },
       description: 'Update todo',
       tags: ['api', 'todo'],
@@ -100,13 +96,13 @@ module.exports = [
         params: {
           id: todoSchema.todoId,
         },
-        failAction: failRequest,
       },
       response: {
         status: {
           204: false,
+          401: responseSchema.unauthorized,
+          500: responseSchema.internalServerError,
         },
-        failAction: failResponse,
       },
       description: 'Delete todo',
       tags: ['api', 'todo'],

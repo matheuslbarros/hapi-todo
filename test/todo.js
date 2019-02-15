@@ -4,7 +4,10 @@ const Code = require('code');
 const uuidv1 = require('uuid/v1');
 
 const server = require('../src/server');
-const repository = require('../src/repositories/todo');
+const userRepository = require('../src/repositories/user');
+const todoRepository = require('../src/repositories/todo');
+
+const { sign } = require('../src/helpers/token');
 
 // Test files must require the lab module, and export a test script
 const lab = Lab.script();
@@ -16,9 +19,20 @@ const { describe, it, before } = lab;
 const { expect } = Code;
 
 describe('todo feature', () => {
+  const context = {};
+
+  before(async () => {
+    const user = await userRepository.findByUsername('admin');
+
+    context.headers = {
+      'x-access-token': sign(user),
+    };
+  });
+
   describe('GET todo list', () => {
     it('return array', async () => {
       const request = {
+        headers: context.headers,
         method: 'GET',
         url: '/api/todo',
       };
@@ -28,13 +42,23 @@ describe('todo feature', () => {
       expect(response.statusCode).to.equal(200);
       expect(response.result).to.be.an.array();
     });
+
+    it('throw unauthorized', async () => {
+      const request = {
+        method: 'GET',
+        url: '/api/todo',
+      };
+
+      const response = await server.inject(request);
+
+      expect(response.statusCode).to.equal(401);
+      expect(response.result).to.be.an.object();
+    });
   });
 
   describe('GET todo', () => {
-    const context = {};
-
     before(async () => {
-      context.todo = await repository.create({
+      context.todo = await todoRepository.create({
         title: 'title',
         description: 'description',
       });
@@ -42,6 +66,7 @@ describe('todo feature', () => {
 
     it('return todo', async () => {
       const request = {
+        headers: context.headers,
         method: 'GET',
         url: `/api/todo/${context.todo.id}`,
       };
@@ -54,8 +79,9 @@ describe('todo feature', () => {
       expect(response.result.description).to.be.a.string();
     });
 
-    it('throw 404', async () => {
+    it('throw not found', async () => {
       const request = {
+        headers: context.headers,
         method: 'GET',
         url: `/api/todo/${uuidv1()}`,
       };
@@ -69,6 +95,7 @@ describe('todo feature', () => {
   describe('POST todo', () => {
     it('return todo', async () => {
       const request = {
+        headers: context.headers,
         method: 'POST',
         url: '/api/todo',
         payload: {
@@ -84,13 +111,26 @@ describe('todo feature', () => {
       expect(response.result.title).to.be.a.string();
       expect(response.result.description).to.be.a.string();
     });
+
+    it('throw bad request', async () => {
+      const request = {
+        headers: context.headers,
+        method: 'POST',
+        url: '/api/todo',
+        payload: {
+        },
+      };
+
+      const response = await server.inject(request);
+
+      expect(response.statusCode).to.equal(400);
+      expect(response.result).to.be.an.object();
+    });
   });
 
   describe('PUT todo', () => {
-    const context = {};
-
     before(async () => {
-      context.todo = await repository.create({
+      context.todo = await todoRepository.create({
         title: 'title',
         description: 'description',
       });
@@ -98,6 +138,7 @@ describe('todo feature', () => {
 
     it('return todo', async () => {
       const request = {
+        headers: context.headers,
         method: 'PUT',
         url: `/api/todo/${context.todo.id}`,
         payload: {
@@ -118,10 +159,8 @@ describe('todo feature', () => {
   });
 
   describe('DELETE todo', () => {
-    const context = {};
-
     before(async () => {
-      context.todo = await repository.create({
+      context.todo = await todoRepository.create({
         title: 'title',
         description: 'description',
       });
@@ -129,6 +168,7 @@ describe('todo feature', () => {
 
     it('return nothing', async () => {
       const request = {
+        headers: context.headers,
         method: 'DELETE',
         url: `/api/todo/${context.todo.id}`,
       };

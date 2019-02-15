@@ -1,15 +1,19 @@
 
-const helloRoutes = require('../routes/hello');
+const homeRoutes = require('../routes/home');
+const authRoutes = require('../routes/auth');
 const todoRoutes = require('../routes/todo');
 
-const name = 'routes';
-
 const register = (server) => {
-  server.route(helloRoutes);
+  server.route(homeRoutes);
+  server.route(authRoutes);
   server.route(todoRoutes);
+
+  server.table().forEach((route) => {
+    server.log(['INFO'], `${route.method.toUpperCase()} ${route.path}`);
+  });
 };
 
 module.exports = {
-  name,
+  name: 'routes',
   register,
 };

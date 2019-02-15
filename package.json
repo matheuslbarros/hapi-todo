@@ -1,7 +1,9 @@
 {
   "name": "hapi-todo",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is an example of a todo api implemented on hapi",
+  "author": "Matheus Barros",
+  "license": "ISC",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -10,18 +12,19 @@
     "test": "lab --verbose --assert code --coverage --ignore ',__core-js_shared__,core,'",
     "test:report": "lab -L -c -r html -o test/artifacts/coverage.html"
   },
-  "author": "Matheus Barros",
-  "license": "ISC",
   "pre-commit": [
     "lint",
     "test"
   ],
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "boom": "^7.3.0",
     "hapi": "^18.1.0",
+    "hapi-auth-basic": "^5.0.0",
     "hapi-swagger": "^9.3.1",
     "inert": "^5.1.2",
     "joi": "^14.3.1",
+    "jsonwebtoken": "^8.4.0",
     "uuid": "^3.3.2",
     "vision": "^5.4.4"
   },

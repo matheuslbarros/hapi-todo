@@ -8,38 +8,23 @@ const server = require('../src/server');
 const lab = Lab.script();
 
 // shortcuts from lab
-const { describe, it, before } = lab;
+const { describe, it } = lab;
 
 // shortcuts from code
 const { expect } = Code;
 
-describe('hello feature', () => {
-  before(async () => {
-    server.run();
-  });
-
-  describe('GET hello', () => {
-    it('return hello message', async () => {
+describe('home feature', () => {
+  describe('GET home', () => {
+    it('return message', async () => {
       const request = {
         method: 'GET',
-        url: '/hello?name=matheus',
+        url: '/',
       };
 
       const response = await server.inject(request);
 
       expect(response.statusCode).to.equal(200);
       expect(response.result).to.be.an.object();
-    });
-
-    it('throw 400', async () => {
-      const request = {
-        method: 'GET',
-        url: '/hello',
-      };
-
-      const response = await server.inject(request);
-
-      expect(response.statusCode).to.equal(400);
     });
   });
 });
