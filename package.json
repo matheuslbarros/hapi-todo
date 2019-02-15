@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "lab --verbose --assert code --coverage"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint src",
+    "test": "lab --verbose --assert code --coverage --ignore ',__core-js_shared__,core,'",
+    "test:report": "lab -L -c -r html -o test/artifacts/coverage.html"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +23,11 @@
   },
   "devDependencies": {
     "code": "^5.2.4",
+    "eslint": "^5.13.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
     "lab": "^18.0.2"
   }
 }
