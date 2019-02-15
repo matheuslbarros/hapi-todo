@@ -10,7 +10,7 @@ const server = hapi.server({
   port: 9000,
 });
 
-const run = async function () {
+const run = async () => {
   await server.register([
     inert,
     vision,
@@ -20,7 +20,7 @@ const run = async function () {
   await server.register(routes);
   await server.start();
 
-  server.log(['server', 'start'], 'Server running at ' + server.info.uri);
+  server.log(['server', 'start'], `Server running at ${server.info.uri}`);
 };
 
 module.exports = server;

@@ -1,4 +1,4 @@
-const server = require('./server');
+const server = require('./src/server');
 
 server.events.on('log', (event) => {
   if (event.error) {

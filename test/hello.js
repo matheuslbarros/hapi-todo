@@ -2,7 +2,7 @@
 
 const Lab = require('lab');
 const Code = require('code'); 
-const server = require('../server');
+const server = require('../src/server');
 
 // Test files must require the lab module, and export a test script
 const lab = (exports.lab = Lab.script());

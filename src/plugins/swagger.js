@@ -1,11 +1,11 @@
 
 const hapiSwagger = require('hapi-swagger');
-const package = require('../package');
+const packageJson = require('../../package');
 
 const options = {
   info: {
     title: 'Todo API Documentation',
-    version: package.version,
+    version: packageJson.version,
   },
 };
 

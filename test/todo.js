@@ -2,8 +2,8 @@
 
 const Lab = require('lab');
 const Code = require('code');
-const server = require('../server');
-const repository = require('../repositories/todo');
+const server = require('../src/server');
+const repository = require('../src/repositories/todo');
 const uuidv1 = require('uuid/v1');
 
 // Test files must require the lab module, and export a test script
