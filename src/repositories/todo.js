@@ -8,7 +8,9 @@ const find = async () => {
 };
 
 const findOne = async (id) => {
-  const todo = todos.find(todo => todo.id === id);
+  const todo = todos.find((t) => {
+    return t.id === id;
+  });
 
   if (!todo) {
     throw boom.notFound('Todo not found');
@@ -18,21 +20,33 @@ const findOne = async (id) => {
 };
 
 const create = async (data) => {
-  data.id = uuidv1();
-  data.created_at = new Date();
-  todos.push(data);
+  const { title, description } = data;
 
-  return Promise.resolve(data);
+  const todo = {
+    id: uuidv1(),
+    title,
+    description,
+    created_at: new Date(),
+  };
+
+  todos.push(todo);
+
+  return Promise.resolve(todo);
 };
 
 const update = async (data) => {
-  const { id } = data;
+  const {
+    id,
+    title,
+    description,
+    done,
+  } = data;
 
   return findOne(id).then((todo) => {
-    todo.title = data.title;
-    todo.description = data.description;
-    todo.done = data.done;
-    todo.updated_at = new Date();
+    todo.title = title; // eslint-disable-line
+    todo.description = description; // eslint-disable-line
+    todo.done = done; // eslint-disable-line
+    todo.updated_at = new Date(); // eslint-disable-line
 
     return todo;
   });

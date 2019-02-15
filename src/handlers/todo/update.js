@@ -12,7 +12,9 @@ module.exports = async (request, h) => {
     done,
   };
 
-  return todoRepository.update(data).then((todo) => {
-    return h.response(todo);
-  });
+  return todoRepository
+    .update(data)
+    .then((todo) => {
+      return h.response(todo);
+    });
 };
