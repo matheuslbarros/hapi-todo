@@ -1,6 +1,14 @@
 # Todo API example
 
+[![Travis-ci Build Status](https://travis-ci.org/matheuslbarros/hapi-todo.svg?branch=master)](https://travis-ci.org/matheuslbarros/hapi-todo)
+
 This is an example of a todo API implemented on Hapi
+
+## Demo
+
+See the live example running on heroku
+
+https://matheuslbarros-hapi-todo.herokuapp.com/
 
 ## Getting Started
 
