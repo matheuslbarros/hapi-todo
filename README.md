@@ -75,7 +75,7 @@ Import the [todo.postman_collection.json](/docs/todo.postman_collection.json) fi
 
 ## Documentation
 
-After start the application, you will be able to see the documentation on   [/documentation](http://127.0.0.1:9000/documentation), here you can also execute requests to the endpoints.
+After start the application, you will be able to see the documentation on [/documentation](https://matheuslbarros-hapi-todo.herokuapp.com/documentation), there you can also execute requests to the endpoints.
 
 ## Built With
 
@@ -85,7 +85,9 @@ After start the application, you will be able to see the documentation on   [/do
 * [Lab](https://github.com/hapijs/lab) - Simple test utility for Node.js
 * [ESLint](https://eslint.org/) - The pluggable linting utility for JavaScript
 * [Swagger](https://swagger.io/) - Most popular suite of tools across the API lifecycle
-* [Postman](https://www.getpostman.com/) - Complete API development environment, and flexibly integrates with the software development cycle.
+* [Postman](https://www.getpostman.com/) - Complete API development environment, and flexibly integrates with the software development cycle
+* [Travis CI](https://travis-ci.org/) - Continuous integration service used to build, test and deploy 
+* [Heroku](https://www.heroku.com/) - Platform as a service for building, running, and managing apps
 
 ## Authors
 
