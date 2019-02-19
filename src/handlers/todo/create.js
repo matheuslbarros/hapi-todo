@@ -2,12 +2,12 @@
 const todoRepository = require('../../repositories/todo');
 
 module.exports = async (request, h) => {
-  const { title, description } = request.payload;
+  const { title, description, done } = request.payload;
 
   const data = {
     title,
     description,
-    done: false,
+    done,
   };
 
   return todoRepository

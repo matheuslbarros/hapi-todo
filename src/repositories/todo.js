@@ -20,12 +20,17 @@ const findOne = async (id) => {
 };
 
 const create = async (data) => {
-  const { title, description } = data;
+  const {
+    title,
+    description,
+    done,
+  } = data;
 
   const todo = {
     id: uuidv1(),
     title,
     description,
+    done,
     created_at: new Date(),
   };
 
