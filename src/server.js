@@ -5,6 +5,7 @@ const authBasic = require('hapi-auth-basic');
 
 const config = require('../config');
 
+const cors = require('./plugins/cors');
 const routes = require('./plugins/routes');
 const swagger = require('./plugins/swagger');
 
@@ -18,6 +19,7 @@ const server = hapi.server({
 
 const run = async () => {
   await server.register([
+    cors,
     authBasic,
     inert,
     vision,
